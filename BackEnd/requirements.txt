@@ -1,0 +1,7 @@
+Django==4.2
+djangorestframework==3.16.0
+mysqlclient==2.2.7
+requests==2.31.0
+python-dotenv==1.1.0
+django-autoslug==1.9.9
+python-jose==3.4.0

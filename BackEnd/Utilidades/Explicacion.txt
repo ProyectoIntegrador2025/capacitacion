@@ -1,0 +1,1 @@
+Esta carpeta sirve para guardar las utilidades del proyecto, se le crea un archivo Utilidades.py donde se van a hacer y si o si tiene que tener su archivo__init__.py para que el proyecto reconozca que esto es un modelo
