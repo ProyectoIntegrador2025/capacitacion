@@ -84,6 +84,20 @@ class Clase_Recetas_Helper_Listar_Ultimas_3_Recetas (APIView) :
 class Clase_Recetas_Helper_Buscador (APIView) : 
     
     def get (self, request) :
-        data = Receta.objects.order_by('-id').all()[:3] #BUSCA POR CATEGORIA ID Y POR NOMBRE LIKE...
-        data_JSON = RecetaSerializer(data, many = True)
-        return JsonResponse ({"data" : data_JSON.data}, status = HTTPStatus.OK)
+        if request.GET.get('categoria_id') == None or not request.GET.get('categoria_id') :
+            return JsonResponse ({"Estado" : "Error", "Mensaje" : "Debe ingresar categoria"}, status = HTTPStatus.BAD_REQUEST)
+        if request.GET.get('search') == None or not request.GET.get('search') :
+            return JsonResponse ({"Estado" : "Error", "Mensaje" : "Debe ingresar search"}, status = HTTPStatus.BAD_REQUEST)
+        
+        try :
+            existe = Categoria.objects.filter(pk = request.GET.get('categoria_id')).get()
+        except Categoria.DoesNotExist :
+            return JsonResponse ({"Estado" : "Error", "Mensaje" : "No existe la categoria"}, status = HTTPStatus.BAD_REQUEST)
+        
+        try :
+            existe = Receta.objects.filter(nombre__icontains = request.GET.get('search')).get()
+            data = Receta.objects.filter(categoria_id = request.GET.get('categoria_id')).filter(nombre__icontains = request.GET.get('search')).order_by('-id').all() #BUSCA POR CATEGORIA ID Y POR NOMBRE LIKE...
+            data_JSON = RecetaSerializer(data, many = True)
+            return JsonResponse ({"data" : data_JSON.data}, status = HTTPStatus.OK)
+        except Receta.DoesNotExist :
+            return JsonResponse ({"Estado" : "Error", "Mensaje" : "No existe la receta"}, status = HTTPStatus.BAD_REQUEST)

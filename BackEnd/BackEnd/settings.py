@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
     'rest_framework',
+    'corsheaders',
     'Categorias',
     'Recetas',
     'Contacto',
@@ -53,6 +55,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:8000:5173', #PUERTO DE VUE, SE PUEDEN AGREGAR LOS OTROS COMO PARA ANGULAR POR EJ Y QUE SE PUEDA USAR EL BACKEND DESDE OTROS FRAMEWORKS
+]
+CORS_ORIGIN_REGEX_WHITELIST = [
+    'http://127.0.0.1:8000:5173',
 ]
 
 ROOT_URLCONF = 'BackEnd.urls'
