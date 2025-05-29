@@ -10,10 +10,31 @@ import os
 #LLAMAR A UTILIDADES
 from Utilidades import Utilidades
 
+#Swagger
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
 # Create your views here.
 
 class Clase_Contacto_1 (APIView) :
     
+    @swagger_auto_schema(
+        operation_description='Endopoint para contacto',
+        responses={
+            200:'Succes',
+            400:'Bad request'
+        },
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                "nombre" : openapi.Schema(type=openapi.TYPE_STRING, description='nombre'),
+	            "correo" : openapi.Schema(type=openapi.TYPE_STRING, description='coprreo'),
+	            "telefono" : openapi.Schema(type=openapi.TYPE_STRING, description='telefono'),
+	            "mensaje" : openapi.Schema(type=openapi.TYPE_STRING, description='mensaje')
+            },
+            required=['nombre', 'correo', 'telefono', 'mensaje']
+        )
+    )
     def post (self, request) :
         
         if request.data['nombre'] == '' or not request.data['nombre'] or request.data['nombre'] == None :

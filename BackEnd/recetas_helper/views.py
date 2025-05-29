@@ -48,18 +48,22 @@ class Clase_Recetas_Helper_Editar_Foto (APIView) :
          
         #CARGADO DE IMAGEN PARA LA RECETA
         fs = FileSystemStorage()
-        try : 
+        try:
             foto = f"{datetime.timestamp(datetime.now())}{os.path.splitext(str(request.FILES['foto']))[1]}"
-            if request.FILES['foto'].content_type == 'image/jpeg' or request.FILES['foto'].content_type == 'image/png' : #VALIDACION DE FORMATO MIMETYPE DEL ARCHIVO QUE SE SUBE
+            if request.FILES['foto'].content_type in ['image/jpeg', 'image/png']:
                 fs.save(f"recetas/{foto}", request.FILES['foto'])
-                fs.url(request.FILES['foto'])
-                Receta.objects.filter(id = request.data['id']).update(foto = foto)
-                os.remove(f"./uploads/recetas/{anterior}")
-                return JsonResponse ({"Estado" : "Ok", "Mensaje" : "Registro editado correctamente"}, status = HTTPStatus.OK)
-            else :
-                return JsonResponse ({"Estado" : "Error", "Mensaje" : "Error de formato de la foto."}, status = HTTPStatus.BAD_REQUEST)
-        except Exception as e :
-            return JsonResponse ({"Estado" : "Error", "Mensaje" : "Error al subir la foto"}, status = HTTPStatus.BAD_REQUEST)
+                Receta.objects.filter(id=request.data['id']).update(foto=foto)
+            if anterior:
+                try:
+                    os.remove(f"./uploads/recetas/{anterior}")
+                except FileNotFoundError:
+                    pass  # No pasa nada si no existía
+                return JsonResponse({"Estado": "Ok", "Mensaje": "Registro editado correctamente"}, status=HTTPStatus.OK)
+            else:
+                return JsonResponse({"Estado": "Error", "Mensaje": "Error de formato de la foto."}, status=HTTPStatus.BAD_REQUEST)
+        except Exception as e:
+            return JsonResponse({"Estado": "Error", "Mensaje": f"Error al subir la foto: {str(e)}"}, status=HTTPStatus.BAD_REQUEST)
+
 
 
 class Clase_Recetas_Helper_Filtro_Por_Slug_2 (APIView) :

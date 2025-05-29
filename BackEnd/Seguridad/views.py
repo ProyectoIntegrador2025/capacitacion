@@ -16,6 +16,10 @@ from django.conf import settings
 import os
 import time
 
+#Swagger
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
 # Create your views here.
 
 class Clase_Seguridad_Registro_1 (APIView) :
@@ -82,6 +86,22 @@ class Clase_Seguridad_Validacion (APIView) :
 
 class Clase_Seguridad_LogIn_1 (APIView) :
     
+    @swagger_auto_schema(
+        operation_description='Endopoint para contacto',
+        responses={
+            200:'Succes',
+            400:'Bad request',
+            404:'Not found'
+        },
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                "correo" : openapi.Schema(type=openapi.TYPE_STRING, description='correo'),
+	            "password" : openapi.Schema(type=openapi.TYPE_STRING, description='password')
+            },
+            required=['correo', 'password']
+        )
+    )
     def post (self, request) :
         
         if request.data['correo'] == None or not request.data['correo'] :

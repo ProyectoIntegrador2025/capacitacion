@@ -16,6 +16,9 @@ from Seguridad.decorators import logueado
 from jose import jwt
 from django.conf import settings
 
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
 # Create your views here.
 
 class Clase_Recetas_1 (APIView) :
@@ -115,6 +118,23 @@ class Clase_Recetas_2 (APIView) :
         except Receta.DoesNotExist :
             return JsonResponse ({"Estado" : "Error", "Mensaje" : "No Se Edito La Receta"}, status = HTTPStatus.BAD_REQUEST)
     
+    
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                'Authorization',
+                openapi.IN_HEADER,
+                description="Token",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ],
+        responses={
+            200: 'Receta borrada correctamente',
+            401: 'No autorizado',
+            404: 'No existe receta con ese ID'
+        }
+    )
     @logueado()   
     def delete (self, request, Id) :
         try :
