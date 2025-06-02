@@ -43,8 +43,8 @@ class Clase_Recetas_1 (APIView) :
         if request.data.get("categoria_id") == None or not request.data.get("categoria_id") :
             return JsonResponse ({"Estado" : "Error", "Mensaje" : "El campo categoria_id es obligatorio y debe ser 'categoria_id'"}, status = HTTPStatus.BAD_REQUEST)
         
-        if Receta.objects.filter(nombre = request.data['nombre']).exists() : #VALIDO QUE NO EXISTA DATO CON IGUAL NOMBRE POR EJ
-            return JsonResponse ({"Estado" : "Error", "Mensaje" : f"Ya existe receta con ese nombre, {request.data['nombre']}"}, status = HTTPStatus.BAD_REQUEST)
+        #if Receta.objects.filter(nombre = request.data['nombre']).exists() : #VALIDO QUE NO EXISTA DATO CON IGUAL NOMBRE POR EJ
+            #return JsonResponse ({"Estado" : "Error", "Mensaje" : f"Ya existe receta con ese nombre, {request.data['nombre']}"}, status = HTTPStatus.BAD_REQUEST)
         
         try :
             Categoria.objects.filter(pk = request.data['categoria_id']).get() #VALIDA QUE LA CATEGORIA QUE ME INGRESA EL USUARIO SEA CORRECTA Y EXISTA

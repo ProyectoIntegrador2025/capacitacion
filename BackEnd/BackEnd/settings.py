@@ -92,15 +92,12 @@ WSGI_APPLICATION = 'BackEnd.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'base_django',
-        'USER' : 'root',
-        'PASSWORD' : 'Brunotp511Camarolli$',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER' : 'postgres',
+        'PASSWORD' : 'RuKimZa10101403$',
         'HOST' : 'localhost',
-        'PORT' : '3306',
-        'OPTIONS' : {
-            'autocommit' : True
-        }
+        'PORT' : '5432',
     }
 }
 

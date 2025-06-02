@@ -2,8 +2,26 @@
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import { recetasComposable } from '@/composables/RecetasComposable';
+import { watchEffect, ref } from 'vue';
 
-const {datos:datos, result:result} = recetasComposable();
+import { Form, Field } from 'vee-validate';
+
+let { datos: datos, categorias: categorias, result: result } = recetasComposable();
+
+watchEffect(() => {
+    if (result.value) {
+        window.location = '/error'
+    }
+});
+
+let categoria_id = ref("0")
+let search = ref('')
+
+let enviar= ()=> {
+    if (categoria_id.value != "0") {
+        window.location = `/recetas/buscador?categoria_id=${categoria_id.value}&search=${search.value}`
+    }
+}
 
 </script>
 
@@ -22,7 +40,7 @@ const {datos:datos, result:result} = recetasComposable();
         </div>
     </div>
 
-    <!--<section class="top-catagory-area section-padding-80-0">
+    <section class="top-catagory-area section-padding-80-0">
         <div class="container">
 
             <div class="receipe-post-search mb-80">
@@ -32,15 +50,14 @@ const {datos:datos, result:result} = recetasComposable();
 
                             <div class="col-12 col-lg-4">
                                 <Field as="select" v-model="categoria_id" class="form-control" name="categoria_id">
-                                    <option value="0">Seleccione.....</option>
-                                    <option v-for="(categoria, i) in categorias.data" :key="i" :value="categoria.id">{{
-                                        categoria.nombre }}</option>
+                                    <option value="0" selected>Seleccione Categoria...</option>
+                                    <option v-for="(categoria, i) in categorias.datos" :key="i" :value="categoria.id">{{ categoria.nombre }}</option>
                                 </Field>
                             </div>
 
                             <div class="col-12 col-lg-4">
                                 <Field type="text" v-model="search" name="search" id="search" class="form-control"
-                                    placeholder="Buscar....." />
+                                    placeholder="Buscar..." />
                             </div>
 
                             <div class="col-12 col-lg-3 text-right">
@@ -55,7 +72,7 @@ const {datos:datos, result:result} = recetasComposable();
             </div>
 
         </div>
-    </section>-->
+    </section>
 
     <section class="best-receipe-area">
         <div class="container">
@@ -72,7 +89,7 @@ const {datos:datos, result:result} = recetasComposable();
                     <div class="single-best-receipe-area mb-30">
                         <img :src="dato.foto" class="foto-mini" :alt="dato.nombre" />
                         <div class="receipe-content">
-                            <router-link :to="{ name: 'RecetasDetalle', params: { nombre: dato.nombre } }">
+                            <router-link :to="{ name: 'RecetasDetalle', params: { slug: dato.slug } }">
                                 <h5>{{ dato.nombre }}</h5>
                             </router-link>
                         </div>

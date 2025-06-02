@@ -18,7 +18,7 @@ def SendMail (html, asunto, destino) :
     
     try :
         server = smtplib.SMTP('sandbox.smtp.mailtrap.io', '587')
-        server.login('0709f9d0c4f25e', '1c0da43b781b2c')
+        server.login('3fd44e4d9627c3', 'ac657a7c970890') #ESTO NO SE POR QUE HAY QUE CAMBIARLO CADA VEZ QUE LO VAYAS A USAR PERO SERA POR QUE ES ALGO GRATUITO Y DE PRUEBAS
         server.sendmail('3fd44e4d9627c3', destino, mensaje.as_string())
         server.quit()
     except smtplib.SMTPResponseException as e:

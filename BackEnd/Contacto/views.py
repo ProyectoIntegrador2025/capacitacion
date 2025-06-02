@@ -61,7 +61,7 @@ class Clase_Contacto_1 (APIView) :
                 </ul>
             """
             Utilidades.SendMail(html, 'Prueba Mail', request.data['correo'])
-            return JsonResponse ({"Estado" : "Ok", "mensaje" : "Gracias por su mensaje"}, status = HTTPStatus.CREATED) 
+            return JsonResponse ({"Estado" : "Ok", "mensaje" : "Gracias por su mensaje"}, status = HTTPStatus.OK) 
         except Exception as e :
             return JsonResponse ({"Estado" : "Error", "mensaje" : "Error inesperado"}, status = HTTPStatus.BAD_REQUEST) 
         

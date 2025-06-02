@@ -49,7 +49,7 @@
                     <div class="single-best-receipe-area mb-30">
                         <img :src="dato.foto" class="foto-mini" :alt="dato.nombre"> <!--LOS : ANTES DE SRC Y ALT SON PARA PODER ACCEDER A LOS DATOS DE LA VARIABLE AHI MISMO-->
                         <div class="receipe-content">
-                            <RouterLink :to="{name:'RecetasDetalle', params:{nombre:dato.nombre}}">
+                            <RouterLink :to="{name:'RecetasDetalle', params:{slug : dato.slug}}">
                                 <h5>{{ dato.nombre }}</h5>
                             </RouterLink>
                         </div>

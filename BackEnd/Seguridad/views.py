@@ -43,7 +43,7 @@ class Clase_Seguridad_Registro_1 (APIView) :
         
         #Registrar al usuario con insert en cascada
         try :
-            usuario = User.objects.create_user(username = request.data['nombre'], password = request.data['password'], email = request.data['correo'], is_active = 0) #SOLO PARA CREAR USUARIOS SE USA ESTE METODO
+            usuario = User.objects.create_user(username = request.data['nombre'], password = request.data['password'], email = request.data['correo'], is_active = 1) #SOLO PARA CREAR USUARIOS SE USA ESTE METODO
             
             #LOS CAMPOS EN LOS QUE GUARDO LOS DATOS SALEN DE LA BASE DE DATOS y se le puede agregar el first_name y last_name o el is_superuser! Y EL IS_ACTIVE SIRVE PARA QUE EL USUARIO SE CREE SIN PODERSE LOGUEAR A MODO DE QUE TENGA QUE VERIFICARSE
             UsersMetaData.objects.create(token = token, user_id = usuario.id)
@@ -57,7 +57,7 @@ class Clase_Seguridad_Registro_1 (APIView) :
                 <br/>
                 o copia y pega la siente url en tu navegador favorito: {url}
             """
-            utilidades.SendMail(html, 'Verificacion', request.data['correo'])
+            #utilidades.SendMail(html, 'Verificacion', request.data['correo'])
             
             return JsonResponse ({"Estado" : "Ok", "Mensaje" : "Registro creado con exito"}, status = HTTPStatus.CREATED)
         except Exception as e :

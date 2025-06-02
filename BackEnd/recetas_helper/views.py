@@ -99,7 +99,6 @@ class Clase_Recetas_Helper_Buscador (APIView) :
             return JsonResponse ({"Estado" : "Error", "Mensaje" : "No existe la categoria"}, status = HTTPStatus.BAD_REQUEST)
         
         try :
-            existe = Receta.objects.filter(nombre__icontains = request.GET.get('search')).get()
             data = Receta.objects.filter(categoria_id = request.GET.get('categoria_id')).filter(nombre__icontains = request.GET.get('search')).order_by('-id').all() #BUSCA POR CATEGORIA ID Y POR NOMBRE LIKE...
             data_JSON = RecetaSerializer(data, many = True)
             return JsonResponse ({"data" : data_JSON.data}, status = HTTPStatus.OK)

@@ -1,6 +1,5 @@
 from django.urls import path
 from .views import *
-from .views import *
 
 urlpatterns = [
     path('Recetas', Clase_Recetas_1.as_view()),

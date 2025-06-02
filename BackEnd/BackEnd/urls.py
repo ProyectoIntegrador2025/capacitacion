@@ -23,13 +23,21 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
     path('', include('Home.urls')), #Dejar vacio el path es para una pag de inicio o bienvenida por que es que no pusieron nada en particular.
+    
     path('API/V1/', include('Prueba1.urls')),
+    
     path('API/V1/', include('Categorias.urls')),
+
     path('API/V1/', include('Recetas.urls')),
+
     path('API/V1/', include('Contacto.urls')),
+
     path('API/V1/', include('Seguridad.urls')),
+
     path('API/V1/', include('recetas_helper.urls')),
+
     #RUTAS SWAGGER ESTO SIEMPRE ES ASI SE COPIA Y SE PEGA
     path('Documentacion<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'), #ESTO ES PARA EL JSON LA URL
     path('Documentacion/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-json-ui'), #ESTA ES LA URL GENERAL DE LA DOCUMENTACION

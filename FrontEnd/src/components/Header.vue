@@ -60,8 +60,9 @@
                                     <li><router-link to="/" title="Home">Home</router-link></li>
                                     <li><router-link to="/sobre-nosotros" title="Sobre nosotros">Sobre Nosotros</router-link></li>
                                     <li><router-link to="/recetas" title="Recetas">Recetas</router-link></li>
-                                    <li><router-link to="/contactanos" title="Contáctanos">Contáctanos</router-link>
-                                    </li>
+                                    <li><router-link to="/Contacto" title="Contáctanos">Contáctanos</router-link></li>
+                                    <li><router-link to="/Registro" title="Registro">Registro</router-link></li>
+                                    <li><router-link to="/LogIn" title="LogIn">LogIn</router-link></li>
                                 </ul>
 
 

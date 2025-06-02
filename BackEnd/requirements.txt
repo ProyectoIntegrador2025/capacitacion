@@ -8,3 +8,4 @@ python-jose==3.4.0
 django-cors-headers==4.7.0
 drf-yasg==1.21.7
 setuptools==80.8.0
+psycopg2-binary==2.9.9
